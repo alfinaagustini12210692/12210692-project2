@@ -1,8 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:pendataanwarga/views/Login_view.dart';
+import 'package:pendataanwarga/providers/berita_panel_provider.dart';
+import 'package:pendataanwarga/views/login_view.dart';
+import 'package:pendataanwarga/providers/dashboard_provider.dart';
+import 'package:provider/provider.dart';
 
 main(List<String> args) {
-  runApp(const MaterialApp(home: LoginView()));
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (c) => DashboardProvider()),
+      ChangeNotifierProvider(create: (c) => BeritaPanelProvider())
+    ],
+    builder: (context, Widget) {
+      return MaterialApp(
+        theme:
+            ThemeData(appBarTheme: AppBarTheme(backgroundColor: Colors.purple)),
+        home: LoginView(),
+      );
+    },
+  ));
 }
 
 class MyApp extends StatelessWidget {
